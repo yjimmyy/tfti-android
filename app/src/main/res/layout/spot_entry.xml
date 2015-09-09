@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+   xmlns:android="http://schemas.android.com/apk/res/android"
+   android:layout_width="fill_parent"
+   android:layout_height="wrap_content"
+   android:orientation="vertical"
+   android:padding="6dip">
+
+   <TextView
+      android:id="@+id/spotEntryName"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentLeft="true"
+      android:layout_alignParentTop="true"
+      android:text="Medium Text"
+      android:textAppearance="?android:attr/textAppearanceMedium" />
+
+   <TextView
+      android:id="@+id/spotEntryNumUsers"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentLeft="true"
+      android:layout_below="@+id/spotEntryName"
+      android:text="Medium Text"
+      android:textAppearance="?android:attr/textAppearanceMedium" />
+
+   <TextView
+      android:id="@+id/spotEntry1"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignBaseline="@+id/spotEntryNumUsers"
+      android:layout_toRightOf="@+id/spotEntryNumUsers"
+      android:text=" Users "
+      android:textAppearance="?android:attr/textAppearanceMedium" />
+
+   <TextView
+      android:id="@+id/spotEntryLat"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignBaseline="@+id/spotEntry1"
+      android:layout_toRightOf="@+id/spotEntry1"
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      android:layout_marginRight="5dp" />
+
+   <TextView
+      android:id="@+id/spotEntryLng"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignBaseline="@+id/spotEntryLat"
+      android:layout_toRightOf="@+id/spotEntryLat"
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      android:layout_marginRight="5dp" />
+
+   <TextView
+      android:id="@+id/spotEntryRadius"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignBaseline="@+id/spotEntryLng"
+      android:layout_toRightOf="@+id/spotEntryLng"
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      android:layout_marginRight="5dp" />
+
+</RelativeLayout>

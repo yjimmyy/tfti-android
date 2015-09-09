@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+   xmlns:android="http://schemas.android.com/apk/res/android"
+   xmlns:tools="http://schemas.android.com/tools"
+   android:layout_width="match_parent"
+   android:layout_height="match_parent">
+
+   <include
+      android:id="@+id/edit_spot_toolbar"
+      layout="@layout/toolbar" />
+
+   <Button
+      android:id="@+id/find_location"
+      style="?android:attr/buttonStyleSmall"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/edit_spot_toolbar"
+      android:layout_marginTop="10dp"
+      android:layout_marginLeft="10dp"
+      android:padding="17dp"
+      android:text="Find Location" />
+
+   <EditText
+      android:id="@+id/name"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/find_location"
+      android:ems="12"
+      android:hint="Name"
+      android:maxLength="50"
+      android:inputType="text"
+      android:layout_marginLeft="10dp"/>
+
+   <Button
+      android:id="@+id/save"
+      style="?android:attr/buttonStyleSmall"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/name"
+      android:layout_marginTop="25dp"
+      android:layout_marginLeft="10dp"
+      android:padding="17dp"
+      android:text="Save" />
+
+</RelativeLayout>
