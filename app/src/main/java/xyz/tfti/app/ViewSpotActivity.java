@@ -28,6 +28,7 @@ public class ViewSpotActivity extends AppCompatActivity
       if (this.getIntent().getExtras() != null) {
          Bundle bundle = this.getIntent().getExtras();
          rowId = bundle.getString("rowId").trim();
+         setTitle(bundle.getString("spotName").trim());
       }
 
       displayListView();

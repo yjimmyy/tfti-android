@@ -1,5 +1,8 @@
 package xyz.tfti.app;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -9,11 +12,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.FacebookSdk;
 
-public class MainActivity extends AppCompatActivity {
+import org.json.JSONObject;
+
+public class MainActivity extends AppCompatActivity
+   implements WebService.Callback<JSONObject> {
    private static final int TOKEN_UPDATE_TIMEOUT = 3000; // timeout for token update in milliseconds
    private static final String STATE_ACCESS_TOKEN = "accessToken"; // savedInstanceState
 
@@ -25,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
+
+      // initialize sync
+      SyncHelper.createSyncAccount(getApplicationContext());
 
       // initialize facebook sdk
       FacebookSdk.sdkInitialize(getApplicationContext());
@@ -44,8 +54,6 @@ public class MainActivity extends AppCompatActivity {
             }
          }
       };
-
-      Log.d("main", "main activity, token updated: " + tokenUpdated);
 
       // update login if onCurrentAccessTokenChanged() takes too long
       timeout = new Handler();
@@ -82,9 +90,6 @@ public class MainActivity extends AppCompatActivity {
 
    @Override
    public boolean onOptionsItemSelected(MenuItem item) {
-      // Handle action bar item clicks here. The action bar will
-      // automatically handle clicks on the Home/Up button, so long
-      // as you specify a parent activity in AndroidManifest.xml.
       int id = item.getItemId();
 
       //noinspection SimplifiableIfStatement
@@ -110,10 +115,28 @@ public class MainActivity extends AppCompatActivity {
          startActivity(intent);
          finish();
       } else {
-         Log.d("main", "logged in");
-         Intent intent = new Intent(this, HomeActivity.class);
-         startActivity(intent);
-         finish();
+         WebService.getInstance(this).loadUser(accessToken.getToken(), accessToken.getUserId(), this);
       }
+   }
+
+   @Override
+   public void onResponse(JSONObject response, VolleyError error) {
+      if (error != null) {
+         Log.d("main", "Volley Login Error: " + error);
+         Toast.makeText(this, "Server Error", Toast.LENGTH_SHORT).show();
+      } else {
+         Log.d("main", "Volley Login Success: " + response);
+         finishLogin();
+      }
+   }
+
+   private void finishLogin() {
+      Log.d("main", "logged in");
+      Intent intent = new Intent(this, HomeActivity.class);
+      Bundle bundle = new Bundle();
+      bundle.putBoolean("initialLogin", true);
+      intent.putExtras(bundle);
+      startActivity(intent);
+      finish();
    }
 }

@@ -5,12 +5,18 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.android.volley.VolleyError;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class EditSpotActivity extends AppCompatActivity
    implements View.OnClickListener {
@@ -133,17 +139,32 @@ public class EditSpotActivity extends AppCompatActivity
          return;
       }
 
-      // insert spot into database
-      ContentValues values = new ContentValues();
-      values.put(Contract.Spots.COLUMN_NAME_NAME, name);
-      values.put(Contract.Spots.COLUMN_NAME_LAT, locationResult.getLat());
-      values.put(Contract.Spots.COLUMN_NAME_LNG, locationResult.getLng());
-      values.put(Contract.Spots.COLUMN_NAME_RADIUS, locationResult.getRadius());
-      if (mode.equals(MODE_ADD)) {
-         getContentResolver().insert(DatabaseContentProvider.SPOTS_URI, values);
+      JSONObject spot = new JSONObject();
+      try {
+         spot.put(WebService.KEY_SPOT_NAME, name);
+         spot.put(WebService.KEY_SPOT_LAT, locationResult.getLat());
+         spot.put(WebService.KEY_SPOT_LNG, locationResult.getLng());
+         spot.put(WebService.KEY_SPOT_RADIUS, locationResult.getRadius());
+      } catch (JSONException e) {
+         Log.d("main", "Error: " + e);
+         saveError();
       }
 
-      finish();
+      WebService.getInstance(this).createSpot(spot, new WebService.Callback<JSONObject>() {
+         @Override
+         public void onResponse(JSONObject response, VolleyError error) {
+            if (error != null || response == null) {
+               saveError();
+            } else {
+               SyncHelper.refresh();
+               finish();
+            }
+         }
+      });
+   }
+
+   private void saveError() {
+      Toast.makeText(this, "Unable to create spot", Toast.LENGTH_SHORT).show();
    }
 
    @Override

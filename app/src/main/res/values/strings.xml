@@ -11,5 +11,6 @@
    <string name="title_activity_edit_spot">Add Spot</string>
    <string name="title_activity_find_location">Find Location</string>
    <string name="title_activity_maps">Map</string>
-   <string name="title_activity_view_spot">ViewSpotActivity</string>
+   <string name="title_activity_view_spot">View Spot</string>
+   <string name="title_activity_join_spot">Join Spot</string>
 </resources>

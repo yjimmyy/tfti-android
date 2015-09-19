@@ -6,8 +6,14 @@
 
    <item
       android:id="@+id/action_add_spot"
-      android:title="Add Spot"
+      android:title="Create Spot"
       android:orderInCategory="50"
+      app:showAsAction="never"/>
+
+   <item
+      android:id="@+id/action_join_spot"
+      android:title="Join Spot"
+      android:orderInCategory="60"
       app:showAsAction="never"/>
 
    <item
@@ -22,10 +28,17 @@
       android:orderInCategory="200"
       app:showAsAction="never"/>
 
+   <!-- TODO: move strings to strings xml file -->
    <item
-      android:id="@+id/action_add_user"
-      android:title="@string/action_logout"
+      android:id="@+id/action_refresh"
+      android:title="Refresh"
+      android:orderInCategory="40"
+      app:showAsAction="never" />
+
+   <item
+      android:id="@+id/action_stop_service"
+      android:title="Stop Service (DEBUG)"
       android:orderInCategory="300"
-      app:showAsAction="never"/>
+      app:showAsAction="never" />
 
 </menu>
