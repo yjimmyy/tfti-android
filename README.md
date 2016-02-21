@@ -1,5 +1,5 @@
-# TFTI Node.js web service using MongoDB database
+# TFTI Android app
 
 *Ignore the most recent comment. This actually does actually work.
 
-This handles user account creation and authentication. Tokens are received through the HTTP header which is then authenticated using Facebook's Graph API. The user is added to the database if not already registered. Once authenticated users are given the an appropriate level of access for their HTTP calls. Users can then create a Spot or join using the generated ID. Location data from the app is then sent to server if the user is at the location and the Spot is updated, ready for other Spot members to retrieve to see who is currently at the Spot's location.
+Users can log in using Facebook which generates the access token. Data is sent and received from web server via http calls using the token for authentication. Users can create a Spot, which is like a group for a designated location, by setting a location and its radius which other users can then join. Users may join a pre-existing group by using a Spot's ID. The app periodically polls the device's location data and updates the server ONLY IF the user is inside a Spot (no creepy location logging to sell your data to the Man). Data retrieved from server is stored locally using SQLite.
